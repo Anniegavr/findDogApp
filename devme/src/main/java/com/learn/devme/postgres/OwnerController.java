@@ -10,7 +10,7 @@ import java.util.List;
 public class OwnerController {
     private final OwnerService ownerService;
 
-    @Autowired
+    @Autowired //will be useless
     public OwnerController(OwnerService ownerService){
 
         this.ownerService = ownerService;

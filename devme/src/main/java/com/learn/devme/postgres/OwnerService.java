@@ -9,6 +9,7 @@ import java.util.Objects;
 import java.util.Optional;
 
 @Service
+@Transactional
 public class OwnerService {
 
     private final OwnerRepository ownerRepository;
@@ -38,7 +39,7 @@ public class OwnerService {
         ownerRepository.deleteById(ownerId);
     }
 
-    @Transactional
+//    @Transactional
     public void updateOwner(Long ownerId, String name, String password) {
         Owner owner = ownerRepository.findById(ownerId).orElseThrow(() -> new IllegalStateException(
                 "owner with id "+ownerId+" doesn't exist"));
