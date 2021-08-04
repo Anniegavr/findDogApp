@@ -1,13 +1,24 @@
 package com.learn.devme.postgres;
 import javax.persistence.*;
 
+import lombok.EqualsAndHashCode;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
+import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.userdetails.UserDetails;
 
+import java.util.Collection;
+
+@Getter
+@Setter
+@EqualsAndHashCode
+@NoArgsConstructor
 @Entity
-@Table
-public class Owner {
+public class Owner implements UserDetails{
     @Id
     @SequenceGenerator(
-            name = "name",
+            name = "owner_sequence",
             sequenceName = "owner_sequence",
             allocationSize = 1
     )
@@ -16,53 +27,64 @@ public class Owner {
             generator = "owner_sequence"
     )
     private Long id;
-    private String name;
+    private String firstName;
+    private String email;
     private String password;
+    private Boolean enabled = true;
+    private Boolean notLocked = true;
 
-    public Owner() {
-    }
-
-    public Owner(Long id, String name, String password) {
-        this.id = id;
-        this.name = name;
+    public Owner(String firstName,
+                 String email,
+                 String password) {
+        this.firstName = firstName;
+        this.email = email;
         this.password = password;
     }
 
-
-    public Owner(String name, String password) {
-        this.name = name;
-        this.password = password;
+    @Override
+    public Collection<? extends GrantedAuthority> getAuthorities() {
+        return null;
     }
 
-    public Long getId() {
-        return id;
-    }
-
-    public void setId(Long id) {
-        this.id = id;
-    }
-
-    public String getName() {
-        return name;
-    }
-
-    public void setName(String name) {
-        this.name = name;
-    }
-
+    @Override
     public String getPassword() {
         return password;
     }
 
-    public void setPassword(String password) {
-        this.password = ""+password.hashCode();
+    @Override
+    public String getUsername() {
+        return firstName;
     }
 
     @Override
-    public String toString() {
-        return "User{" +
-                "id=" + id +
-                ", name='" + name + '\'' +
-                '}';
+    public boolean isAccountNonExpired() {
+        return true;
+    }
+
+    @Override
+    public boolean isAccountNonLocked() {
+        return notLocked;
+    }
+
+    @Override
+    public boolean isCredentialsNonExpired() {
+        return true;
+    }
+
+    public String getEmail(){
+        return email;
+    }
+
+    public void setPassword(String password) {
+        this.password = password;
+    }
+
+    public Long getId(){
+        return id;
+    }
+
+    @Override
+    public boolean isEnabled() {
+        return enabled;
     }
 }

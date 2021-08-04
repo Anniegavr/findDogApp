@@ -1,11 +1,13 @@
 package com.learn.devme.postgres;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.Optional;
 
 @Repository
+@Transactional(readOnly = true)
 public interface OwnerRepository extends JpaRepository<Owner, Long> {
-    Optional<Owner> findOwnerByName(String ownerName);
+    Optional<Owner> findOwnerByEmail(String ownerName);
 
 }
