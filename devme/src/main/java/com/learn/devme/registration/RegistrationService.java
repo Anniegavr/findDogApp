@@ -1,7 +1,7 @@
 package com.learn.devme.registration;
 
-import com.learn.devme.postgres.Owner;
-import com.learn.devme.postgres.OwnerService;
+import com.learn.devme.models.Owner;
+import com.learn.devme.service.OwnerService;
 import lombok.AllArgsConstructor;
 import org.json.simple.JSONObject;
 import org.springframework.stereotype.Service;
